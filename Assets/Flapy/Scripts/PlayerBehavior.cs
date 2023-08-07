@@ -4,8 +4,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerBehavior : MonoBehaviour
 {
-    [SerializeField] private Vector3 gravityDirection = Vector3.down;
+    [SerializeField] private Vector3 gravityDirection = Vector3.up;
     [SerializeField] private Rigidbody playerRigidbody;
+    [SerializeField] private int currentCoinsCount = 0;
+    private float thrust = 300f;
+
+    //[SerializeField] private int currentCoinsCount;
+
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
@@ -16,21 +21,27 @@ public class PlayerBehavior : MonoBehaviour
     {
         GravityChange();
     }
+    private void CollectCoins()
+    {
 
+    }
     private void GravityChange()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.Space))
         {
-            if (gravityDirection == Vector3.down)
-            {
-                gravityDirection = Vector3.up;
-                playerRigidbody.velocity = gravityDirection;
-            }
-            else if (gravityDirection == Vector3.up)
-            {
-                gravityDirection = Vector3.down;
-                playerRigidbody.velocity = gravityDirection;
-            }
+
+            playerRigidbody.AddForce(transform.up * thrust);
+
+            //if (gravityDirection == Vector3.down)
+            //{
+            //    gravityDirection = Vector3.up;
+            //    playerRigidbody.velocity = gravityDirection;
+            //}
+            //else if (gravityDirection == Vector3.up)
+            //{
+            //    gravityDirection = Vector3.down;
+            //    playerRigidbody.velocity = gravityDirection;
+            //}
 
             Debug.Log("presed");
         }
